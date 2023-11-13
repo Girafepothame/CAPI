@@ -39,7 +39,7 @@ function homeHandler() {
 }
 
 function configHandler() {
-    console.log("la page est config");
+    console.log("la page est config !");
     let task = _("#tsk");
     let sender = _("#sendTask");
     let tasks = [];
