@@ -16,8 +16,9 @@
             <label for="p2"> Joueur 2</label>
             <input type="text" name="player2" id="p2">
         </fieldset>
-        <input type="submit" value="Commencer" href="./?page=config">
+        <input type="submit" value="Commencer">
     </form>
+    <a href="./?page=rules"><button>Les règles</button></div></a>
 </div>
 
 

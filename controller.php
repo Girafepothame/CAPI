@@ -8,7 +8,7 @@ if(isset($_GET["page"])) {
 
 
 if ($page == "config") {
-    $_SESSION["palyers"] = $_POST;
+    $_SESSION["players"] = $_POST;
 }
 
 
