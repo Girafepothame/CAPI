@@ -11,10 +11,17 @@
             <input type="file" name="backlog" id="bcklog" accept="application/JSON" onchange="readJSON(event)">
         </div>
         <table id="task_tab">
-            <tr>
+            <tr id="t_headers">
                 <th>Tâche</th>
                 <th></th>
             </tr>
         </table>
+        <button id="bl_save">VALIDER</button>
     </fieldset>
+    <form action="./?page=room" method="post">
+        <fieldset id="taskform"  style="display:none">
+
+        </fieldset>
+        <input type="submit" value="Envoyer" id="bl_send" disabled>
+    </form>
 </div>

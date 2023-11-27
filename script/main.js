@@ -15,6 +15,39 @@ document.addEventListener("DOMContentLoaded", () => {
 
 })
 
+function findGetParameter(parameterName) { // Recupérer la page courrante comme en PHP pur archi MVC
+    var result = null,
+        tmp = [];
+    location.search
+        .substring(1)
+        .split("&")
+        .forEach(function (item) {
+            tmp = item.split("=");
+            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+        });
+    return result;
+}
+
+function _(id) {
+    if (id.substring(0, 1) == '#') {
+        return document.querySelector(id);
+    } else if (id.substring(0, 1) == '.') {
+        return document.querySelectorAll(id);
+    } else {
+        console.log("Mauvais nom d'attribut à sélectionner, veillez à utiliser # ou . pour id ou class");
+    }
+}
+
+function search(el) { // return the value of a text input before reseting the field
+    let res = el.value;
+    el.value = "";
+    return res;
+}
+
+function removerow(e) {
+    e.parentNode.parentNode.remove();
+}
+
 function homeHandler() {
     let pSelect = _("#nbPlayer");
     let players = _("#fieldset_j");
@@ -37,39 +70,6 @@ function homeHandler() {
     })
 }
 
-function configHandler() {
-    console.log("la page est config !");
-    let task = _("#tsk");
-    let sender = _("#sendTask");
-    let tasks = [];
-    let bcklog = _("#bcklog");
-
-    task.addEventListener("keydown", (evt) => {
-        if (evt.key === 'Enter') {
-            let task_val = search(task)
-            addTask(tasks, task_val);
-            
-        }
-    })
-
-    sender.addEventListener("click", () => {
-        let task_val = search(task)
-        addTask(tasks, task_val);
-        
-    })
-
-}
-
-function _(id) {
-    if (id.substring(0, 1) == '#') {
-        return document.querySelector(id);
-    } else if (id.substring(0, 1) == '.') {
-        return document.querySelectorAll(id);
-    } else {
-        console.log("Mauvais nom d'attribut à sélectionner, veillez à utiliser # ou . pour id ou class");
-    }
-}
-
 async function readJSON(event) { // fetch the data of a JSON file into an array
     const file = event.target.files.item(0)
     const text = await file.text();
@@ -82,16 +82,15 @@ async function readJSON(event) { // fetch the data of a JSON file into an array
         createTask(tasks[i]);
     }
 
-  }
-
-function search(el) { // return the value of a text input before reseting the field
-    res = el.value;
-    el.value = "";
-    return res;
 }
 
+async function writeJSON(content) {
+    const file = require('fs');
+    file.writeFileSync("save.js", content);
+}
+
+
 function addTask(tab, task) { // Add a task to the task table (in order to create the backlog)
-    task_tab = _("#task_tab");
     tab.push(task);
 
     createTask(task);
@@ -103,25 +102,73 @@ function createTask(task) { // Create a row inside the task table
     let del = document.createElement("td");
 
     t.innerHTML = task;
+    t.classList.add("task");
     del.innerHTML = "<i class='fa fa-trash-o' style='color:red' onclick='removerow(this);'></i>";
     row.appendChild(t);
     row.appendChild(del);
     task_tab.appendChild(row);
 }
 
-function removerow(e) {
-    e.parentNode.parentNode.remove();
+function createTaskForm(tab) {
+    let taskform = _("#taskform");
+    let content;
+    let Jtab = {
+        "type": "Backlog",
+        "name": "samer",
+        "tasks": {
+
+        }
+    };
+    for (let i = 0; i < tab.length; i++) {
+        let tName = "task" + i;
+        let tValue = tab[i].innerHTML;
+        let input = document.createElement("input");
+
+        input.type = "text";
+        input.name = tName;
+        input.value = tValue;
+
+        taskform.appendChild(input);
+
+        Jtab["tasks"][tName] = tValue;
+        content = JSON.stringify(Jtab);
+    }
+    console.log(content);
+    writeJSON(content);
 }
 
-function findGetParameter(parameterName) { // Recupérer la page courrante comme en PHP pur archi MVC
-    var result = null,
-        tmp = [];
-    location.search
-        .substring(1)
-        .split("&")
-        .forEach(function (item) {
-            tmp = item.split("=");
-            if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
-        });
-    return result;
+function configHandler() {
+
+    let task = _("#tsk");
+    let sender = _("#sendTask");
+    let tasks = [];
+
+    task.addEventListener("keydown", (evt) => {
+        if (evt.key === 'Enter' && task.value != "") {
+            let task_val = search(task)
+            addTask(tasks, task_val);
+        }
+    })
+    sender.addEventListener("click", () => {
+        let task_val = search(task)
+        addTask(tasks, task_val);
+    })
+
+    let save = _("#bl_save");
+    let tsk_tab = [];
+
+    save.addEventListener("click", () => {
+        let t_tab = _(".task");
+        if (t_tab.length > 0) {
+            for (let t of t_tab) {
+                tsk_tab.push(t);
+            }
+            createTaskForm(tsk_tab);
+            // Prevent modifying task tab
+            _("#fieldset_t").disabled = true;
+            _("#bl_send").disabled = false;
+        } else {
+            console.log("Valide pas si t'as rien dans le tableau mon gars");
+        }
+    })
 }
