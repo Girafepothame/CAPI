@@ -9,7 +9,7 @@
             }
             ?>
         </select>
-        <fieldset id="fieldset">
+        <fieldset id="fieldset_j">
             <legend>Joueurs</legend>
             <label for="p1">Joueur 1</label>
             <input type="text" name="player1" id="p1">
