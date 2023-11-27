@@ -19,16 +19,17 @@ function homeHandler() {
     let pSelect = _("#nbPlayer");
     let players = _("#fieldset_j");
     pSelect.addEventListener("change", () => {
-        players.innerHTML = "";
+        players.innerHTML = "<legend>Joueurs</legend>";
         let nbPlayer = pSelect.value;
         for (let i = 1; i <= nbPlayer; i++) {
             let label = document.createElement("label");
             label.for = "p" + i;
-            label.innerHTML = "Joueur : " + i;
+            label.innerHTML = "Joueur " + i + " : ";
             let player = document.createElement("input");
             player.type = "text";
             player.name = "player" + i;
             player.id = "p" + i;
+            player.required = true;
 
             players.appendChild(label)
             players.appendChild(player);
