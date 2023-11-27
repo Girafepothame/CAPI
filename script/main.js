@@ -116,7 +116,7 @@ function findGetParameter(parameterName) { // Recupérer la page courrante comme
     var result = null,
         tmp = [];
     location.search
-        .substr(1)
+        .substring(1)
         .split("&")
         .forEach(function (item) {
             tmp = item.split("=");
