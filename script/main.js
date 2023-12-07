@@ -84,10 +84,7 @@ async function readJSON(event) { // fetch the data of a JSON file into an array
 
 }
 
-async function writeJSON(content) {
-    const file = require('fs');
-    file.writeFileSync("save.js", content);
-}
+
 
 
 function addTask(tab, task) { // Add a task to the task table (in order to create the backlog)
@@ -119,6 +116,7 @@ function createTaskForm(tab) {
 
         }
     };
+    
     for (let i = 0; i < tab.length; i++) {
         let tName = "task" + i;
         let tValue = tab[i].innerHTML;
