@@ -8,7 +8,7 @@
             <button id="sendTask"> > </button>
 
             <label for="bcklog">Fichier de Backlog</label>
-            <input type="file" name="backlog" id="bcklog" accept="application/JSON" onchange="readJSON(event)">
+            <input type="file" name="backlog" id="bcklog" accept="application/JSON">
         </div>
         <table id="task_tab">
             <tr id="t_headers">
@@ -16,12 +16,11 @@
                 <th></th>
             </tr>
         </table>
-        <button id="bl_save">VALIDER</button>
     </fieldset>
     <form action="./?page=room" method="post">
         <fieldset id="taskform"  style="display:none">
 
         </fieldset>
-        <input type="submit" value="Envoyer" id="bl_send" disabled>
+        <input type="submit" value="Envoyer" id="bl_send">
     </form>
 </div>

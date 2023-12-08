@@ -38,16 +38,6 @@ function _(id) {
     }
 }
 
-function search(el) { // return the value of a text input before reseting the field
-    let res = el.value;
-    el.value = "";
-    return res;
-}
-
-function removerow(e) {
-    e.parentNode.parentNode.remove();
-}
-
 function homeHandler() {
     let pSelect = _("#nbPlayer");
     let players = _("#fieldset_j");
@@ -63,84 +53,85 @@ function homeHandler() {
             player.name = "player" + i;
             player.id = "p" + i;
             player.required = true;
-
+            
             players.appendChild(label)
             players.appendChild(player);
         }
     })
 }
 
-async function readJSON(event) { // fetch the data of a JSON file into an array
+
+function search(el) { // return the value of a text input before reseting the field
+    let res = el.value;
+    el.value = "";
+    return res;
+}
+
+function removetask(e) { // remove a row from the task table in HTML and remove it in the json table
+    e.parentNode.remove();
+}
+
+async function readJSON(tab, event) { // fetch the data of a JSON file into an array
     const file = event.target.files.item(0)
     const text = await file.text();
 
-    let tab = JSON.parse(text);
-    let tasks = tab["tasks"];
+    let table = JSON.parse(text);
+    let tasks = table["tasks"];
 
     for (i in tasks) {
-        console.log(tasks[i]);
-        createTask(tasks[i]);
+        addTask(tab, tasks[i]);
     }
-
 }
-
-
-
 
 function addTask(tab, task) { // Add a task to the task table (in order to create the backlog)
     tab.push(task);
-
-    createTask(task);
+    createTask(tab, task);
+    console.log(tab);
 }
 
-function createTask(task) { // Create a row inside the task table
+function createTask(tab, task) { // Create a row inside the task table in the HTML
     let row = document.createElement("tr");
     let t = document.createElement("td");
     let del = document.createElement("td");
 
     t.innerHTML = task;
     t.classList.add("task");
-    del.innerHTML = "<i class='fa fa-trash-o' style='color:red' onclick='removerow(this);'></i>";
+
+    del.innerHTML = "<i class='fa fa-trash-o' style='color:red'></i>";
+    del.addEventListener("click", () => {
+        tab.splice(tab.indexOf(task), 1);
+        removetask(del);
+        console.log(task);
+    })
+
     row.appendChild(t);
     row.appendChild(del);
     task_tab.appendChild(row);
 }
 
-function createTaskForm(tab) {
+function fillForm(tab) {
     let taskform = _("#taskform");
-    let content;
-    let Jtab = {
-        "type": "Backlog",
-        "name": "samer",
-        "tasks": {
 
-        }
-    };
-    
     for (let i = 0; i < tab.length; i++) {
-        let tName = "task" + i;
-        let tValue = tab[i].innerHTML;
-        let input = document.createElement("input");
+        console.log(tab[i])
 
-        input.type = "text";
-        input.name = tName;
-        input.value = tValue;
-
-        taskform.appendChild(input);
-
-        Jtab["tasks"][tName] = tValue;
-        content = JSON.stringify(Jtab);
     }
-    console.log(content);
-    writeJSON(content);
+    // content = JSON.stringify(tab);
 }
 
+
+// The function that takes care of the elements of the config page
 function configHandler() {
 
     let task = _("#tsk");
     let sender = _("#sendTask");
-    let tasks = [];
+    let BLtab = {
+        "type":"Backlog",
+        "tasks": []
+    };
+    let tasks = BLtab["tasks"];
 
+    // When adding a task via the input field
     task.addEventListener("keydown", (evt) => {
         if (evt.key === 'Enter' && task.value != "") {
             let task_val = search(task)
@@ -150,23 +141,19 @@ function configHandler() {
     sender.addEventListener("click", () => {
         let task_val = search(task)
         addTask(tasks, task_val);
+        console.log(tasks);
     })
 
-    let save = _("#bl_save");
-    let tsk_tab = [];
-
-    save.addEventListener("click", () => {
-        let t_tab = _(".task");
-        if (t_tab.length > 0) {
-            for (let t of t_tab) {
-                tsk_tab.push(t);
-            }
-            createTaskForm(tsk_tab);
-            // Prevent modifying task tab
-            _("#fieldset_t").disabled = true;
-            _("#bl_send").disabled = false;
-        } else {
-            console.log("Valide pas si t'as rien dans le tableau mon gars");
-        }
+    // When adding backlog from a file
+    _("#bcklog").addEventListener("change", (e) => {
+        readJSON(tasks, e);
     })
+
+    _("bl_send").addEventListener("click", (e) => {
+        e.preventDefault()
+        console.log(BLtab);
+        fillForm(BLtab);
+    })
+
+
 }
