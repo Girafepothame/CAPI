@@ -17,8 +17,9 @@
             </tr>
         </table>
     </fieldset>
-    <form action="./?page=room" method="post">
-        <fieldset id="taskform"  style="display:none">
+    <button id="send">ENVOYER</button>
+    <form action="./?page=room" method="post" style="display:none">
+        <fieldset id="taskform">
 
         </fieldset>
         <input type="submit" value="Envoyer" id="bl_send">

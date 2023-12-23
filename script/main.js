@@ -47,7 +47,7 @@ function homeHandler() {
         for (let i = 1; i <= nbPlayer; i++) {
             let label = document.createElement("label");
             label.for = "p" + i;
-            label.innerHTML = "Joueur " + i + " : ";
+            label.innerHTML = " Joueur " + i + " : ";
             let player = document.createElement("input");
             player.type = "text";
             player.name = "player" + i;
@@ -111,12 +111,14 @@ function createTask(tab, task) { // Create a row inside the task table in the HT
 
 function fillForm(tab) {
     let taskform = _("#taskform");
+    let bl_input = document.createElement("input");
 
-    for (let i = 0; i < tab.length; i++) {
-        console.log(tab[i])
+    bl_input.type = "text";
+    bl_input.name = "tasks";
 
-    }
-    // content = JSON.stringify(tab);
+    bl_input.value = tab;
+
+    taskform.appendChild(bl_input);
 }
 
 
@@ -149,10 +151,11 @@ function configHandler() {
         readJSON(tasks, e);
     })
 
-    _("bl_send").addEventListener("click", (e) => {
+    send = _("#bl_send");
+    _("#send").addEventListener("click", (e) => {
         e.preventDefault()
-        console.log(BLtab);
-        fillForm(BLtab);
+        fillForm(tasks);
+        send.click();
     })
 
 

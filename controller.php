@@ -11,8 +11,10 @@ if ($page == "config") {
 }
 
 if ($page == "room") {
-    
-    $_SESSION["tasks"] = $_POST;
+    $tasks = explode(",", $_POST["tasks"]);
+
+    $_SESSION["tasks"] = $tasks;
+    var_dump($_SESSION);
 }
 
 
