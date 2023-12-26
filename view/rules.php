@@ -9,5 +9,16 @@
         <h2>4. Favoriser le dialogue</h2>
         <p>Enfin, cette méthode favorise les interactions et les échanges constructifs au sein de l'équipe projet, notamment entre le responsable produit et les développeurs.</p>
 
+        <div id="card-cont">
+                <?php
+                $dirname = "ressources/images/cards/";
+                $images = glob($dirname."*.svg");
+                
+                foreach($images as $image) {
+                    echo '<img class="r-card" src="'.$image.'" />';
+                }        
+                ?>
+        </div>
+
         <a href="./?page=home"><button>Retour</button></a>
 </div>

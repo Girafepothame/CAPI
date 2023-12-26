@@ -2,6 +2,15 @@ i {
     cursor: pointer;
 }
 
+#card-cont {
+    display: flex;
+    justify-content: center;
+    column-gap: 0.5vw;
+}
+
+.r-card {
+    width: 7.5vw;
+}
 .cards {
     width: 1300px;
     display: flex;

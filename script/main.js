@@ -6,8 +6,14 @@ document.addEventListener("DOMContentLoaded", () => {
         case "home":
             homeHandler();
             break;
+        case "rules":
+            roomHandler();
+            break;
         case "config":
             configHandler();
+            break;
+        case "room":
+            roomHandler();
             break;
         default:
             break;
@@ -121,7 +127,6 @@ function fillForm(tab) {
     taskform.appendChild(bl_input);
 }
 
-
 // The function that takes care of the elements of the config page
 function configHandler() {
 
@@ -158,5 +163,10 @@ function configHandler() {
         send.click();
     })
 
+
+}
+
+
+function roomHandler() {
 
 }
