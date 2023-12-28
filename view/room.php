@@ -18,8 +18,10 @@
         echo '<div id="curt" style="display: none;">'.$_POST["curr_t"].'</div>';
         echo '<div id="curp" style="display: none;">'.$_POST["curr_p"].'</div>';
 
-        $values = json_encode($_SESSION["values"]);
-        echo '<div id="values" style="display: none;">'.$values.'</div>';
+        if (isset($_SESSION["values"])) {
+            $values = json_encode($_SESSION["values"]);
+            echo '<div id="values" style="display: none;">'.$values.'</div>';
+        }
     ?>
 
     <div class="contNamePlayer">

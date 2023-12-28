@@ -16,6 +16,7 @@ if ($page == "config") {
 }
 
 if ($page == "room") {
+    $_SESSION["values"] = [];
     if (isset($_POST["tasks"])) {
         $tasks = explode(",", $_POST["tasks"]);
         $_SESSION["tasks"] = $tasks;
