@@ -47,21 +47,21 @@ function _(id) {
 function homeHandler() {
     let pSelect = _("#nbPlayer");
     let players = _("#fieldset_j");
+    let pct = _("#player-cont-template");
     pSelect.addEventListener("change", () => {
-        players.innerHTML = "<legend>Joueurs</legend>";
+        players.innerHTML = "";
         let nbPlayer = pSelect.value;
         for (let i = 1; i <= nbPlayer; i++) {
-            let label = document.createElement("label");
+            let pc = pct.cloneNode(true);
+
+            let label = pc.querySelector("label");
+            label.innerHTML = "Joueur " + i;
             label.for = "p" + i;
-            label.innerHTML = " Joueur " + i + " : ";
-            let player = document.createElement("input");
-            player.type = "text";
-            player.name = "player" + i;
-            player.id = "p" + i;
-            player.required = true;
-            
-            players.appendChild(label)
-            players.appendChild(player);
+
+            let input = pc.querySelector("input");
+            input.name = i;
+            input.id = "p" + i;
+            players.appendChild(pc);
         }
     })
 }
@@ -168,5 +168,44 @@ function configHandler() {
 
 
 function roomHandler() {
+    var nextButton = _('#next');
+    let JGame = {};
+    JGame["tasks"] = JSON.parse(_("#tasks").innerHTML);
+    JGame["players"] = JSON.parse(_("#players").innerHTML);
+    console.log(JGame);
+
+    let p = 0;
+    let t = 0
+
+    next = _("#send");
+    nextButton.addEventListener('click', () => {
+        JGame["current_task"] = t;
+        JGame["current_player"] = p;
+        if (t < JGame["tasks"].length) {
+            if (p < JGame["players"].length) {
+                p++;
+            } else {
+                t++;
+                p = 0;
+            }
+        } else {
+            alert("C'est fini");
+        }
+        _("#cp").value = JGame["players"][p]
+        _("#ct").value = JGame["tasks"][t]
+        next.click();
+    })
 
 }
+
+function selectImage(imageId) {
+    // Récupère toutes les balises img
+    var allImages = document.querySelectorAll('img');
+
+    allImages.forEach(function(img) {
+        img.classList.remove('imgSelected');
+    });
+
+    var selectedImage = document.getElementById(imageId);
+    selectedImage.classList.add('imgSelected');
+  }

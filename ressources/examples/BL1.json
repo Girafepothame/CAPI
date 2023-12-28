@@ -1,8 +1,11 @@
 {
-    "type":"Backlog",
-    "id":"B1",
+    "players": [
+        "Jean-mich",
+        "fromage"
+    ],
     "tasks": [
         "Add user",
         "Delete user"
-    ]
+    ],
+    "current_task": 0
 }

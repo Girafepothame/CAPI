@@ -1,15 +1,263 @@
+@font-face {
+    font-family: 'Kingthings_Exeter';
+    src: url("./fonts/Kingthings_Exeter");
+}
+
+* {
+    font-family: sans-serif;
+}
+
+:root {
+    --deepblue: #0A2239;
+    --kakadwa: #804434;
+    --grey: #546A76;
+    --gold: #c28936;
+}
+
+
+html {
+    height: 100vh;
+    background: radial-gradient(#804434 15%, transparent 16%), linear-gradient(45deg, transparent 49%, #804434 49% 51%, transparent 51%), linear-gradient(-45deg, transparent 49%, #804434 49% 51%, transparent 51%);
+    background-size: 4.14em 4.13em;
+    background-color: var(--deepblue);
+    background-position: center;
+}
+
+#play-form {
+    margin-top: 10vh;
+    margin-left: 16vw;
+}
+
+#r-butt {
+    position: absolute;
+    top: 1vh;
+}
+
+#s-butt {
+    position: absolute;
+    bottom: 7.5vh;
+    right: 7.5vw;
+}
+
+#send {
+    position: absolute;
+    right: 35vw;
+    bottom: 5vh;
+}
+
+/* The flip card container - set the width and height to whatever you want. We have added the border property to demonstrate that the flip itself goes out of the box on hover (remove perspective if you don't want the 3D effect */
+.flip-card {
+    width: 6vw;
+    height: 20vh;
+    color: black;
+    perspective: 1000px;
+    /* Remove this if you don't want the 3D effect */
+    padding: 50px;
+}
+
+.card {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 5px;
+}
+
+.bordered {
+    box-shadow: 0px 0px 0px 1px var(--gold), 0px 0px 0px 5px black, 0px 0px 0px 7px var(--gold), 0px 0px 0px 8px black, 0px 0px 0px 9px var(--gold), 8px 8px 5px 5px black;
+}
+
+/* This container is needed to position the front and back side */
+.flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.8s;
+    transform-style: preserve-3d;
+}
+
+/* Do an horizontal flip when you move the mouse over the flip box container */
+.flip-card:hover .flip-card-inner {
+    transform: rotateY(180deg);
+}
+
+/* Position the front and back side */
+.flip-card-front,
+.flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    /* Safari */
+    backface-visibility: hidden;
+}
+
+/* Style the front side (fallback if image is missing) */
+.flip-card-front {
+    background: radial-gradient(var(--deepblue), black);
+    color: white;
+}
+
+/* Style the back side */
+.flip-card-back {
+    background: white;
+    background-position: center;
+    color: black;
+    transform: rotateY(180deg);
+}
+
+.sw-cont {
+    display: flex;
+    column-gap: 5vw;
+}
+
+.select-wrapper {
+    position: relative;
+    width: 12.5vw;
+
+    /* Dropdown icon */
+    &::after {
+        color: black;
+        content: '▾';
+        margin-right: 10px;
+        pointer-events: none;
+        position: absolute;
+        right: 10px;
+        top: 7px;
+        font-size: 20px;
+    }
+}
+
+/* Default state */
+.select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background: white;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    padding: 12px;
+    width: 100%;
+    font-size: 18px;
+
+    &:focus {
+        color: black;
+    }
+
+    /* Hack for IE 11+ */
+    &::-ms-expand {
+        display: none;
+    }
+}
+
+.select option:first-child {
+    font-style: italic;
+}
+
+input[type="text"] {
+    margin: 5%;
+    border-radius: 5px;
+}
+
+/* Style du bouton */
+button,
+input[type="submit"] {
+    display: inline-block;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid #fff;
+    /* Couleur de la bordure */
+    color: #fff;
+    /* Couleur du texte */
+    background-color: var(--gold);
+    /* Couleur d'arrière-plan */
+    transition: background-color 0.5s ease-in-out, border 0.5s ease-in-out, color 0.5s ease-in-out;
+}
+
+/* Effet de survol */
+button:hover,
+input[type="submit"]:hover {
+    background-color: var(--deepblue);
+    /* Changement de couleur d'arrière-plan au survol */
+    color: #fff;
+    /* Changement de la couleur du texte au survol */
+    border: 2px solid #fff;
+    /* Changement de la couleur de la bordure au survol */
+}
 i {
     cursor: pointer;
 }
 
-#card-cont {
+#fieldset_j {
+    margin-top: 5vh;
+    width: 67.5vw;
+    height: 67.5vh;
     display: flex;
+    flex-wrap: wrap;
+    border-radius: 25px;
+    box-shadow: 0 0 50px;
+}
+
+#fieldset_t {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    margin-left: 5vw;
+    margin-top: 5vh;
+    width: 50vw;
+    height: 90vh;
+    box-shadow: 0 0 50px;
+}
+
+.rules {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5vh;
+    height: 85vh;
+    padding: 2.5vh;
+    background-color: rgba(50, 50, 50, 0.75);
+    border-radius: 10px;
+}
+
+#rules-cont {
+    color: var(--grey);
+    background-color: rgba(20, 20, 35, 0.75);
+    padding: 2.5vh;
+    border-radius: 5px;
     justify-content: center;
     column-gap: 0.5vw;
 }
+#card-cont {
+    background-color: rgba(20, 20, 35, 0.75);
+    display: flex;
+    padding: 2.5vh;
+        border-radius: 5px;
+    justify-content: center;
+    column-gap: 1.75vw;
+}
+
+.return {
+    position: absolute;
+    bottom: 25px;
+    left: 25px;
+}
 
 .r-card {
-    width: 7.5vw;
+    border-radius: 10px;
+    background-color: white;
+    width: 6vw;
+    transition: 1s ease;
+
+    &:hover {
+        transform: rotateY(360deg);
+        background-color: var(--deepblue);
+    }
 }
 .cards {
     width: 1300px;
@@ -20,4 +268,149 @@ i {
 
 .cards div {
     padding: 0px 20px 0px 20px;
+}
+.room {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    position: relative;
+}
+
+.cards {
+    width: 1000px;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    /*position: absolute;*/
+    bottom: 0;
+    background-color: #f0f0f0;
+}
+
+.cards img {
+    width: 40px;
+}
+
+.cards div {
+    padding: 10px 20px 10px 20px;
+}
+
+.cardPlayer {
+    width: 35px;
+    height: 65px;
+    background-color: #e8e9ea;
+    border-radius: 10px;
+}
+
+.gameTable {
+    width: 1000px;
+    justify-content: space-evenly;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.blocFeatures {
+    width: 400px;
+    height: 140px;
+    background: #d7e9ff;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+}
+
+
+#tab-cont {
+    overflow-y: auto;
+    width: 75%;
+    max-height: 75%;
+    margin: 50px auto;
+}
+
+table {
+    width: 100%;
+}
+
+
+th {
+    background: var(--deepblue);
+    color: white;
+    font-weight: bold;
+}
+
+#bcklog {
+    display: none;
+}
+
+.custom-file-upload {
+    position: absolute;
+    width: 10vw;
+    text-align: center;
+    left: 37.5vw;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+    transition: 0.5s ease;
+    border-bottom: solid 5px rgba(255, 255, 255, 0.2);
+    border-right: solid 5px rgba(255, 255, 255, 0.2);
+    &:hover {
+        border-color: rgba(255, 255, 255, 1);
+    }
+
+}
+
+#duck {
+    position: absolute;
+    top: 25vh;
+    right: 10vw;
+}
+
+td,
+th {
+    width: fit-content;
+    background-color: rgba(0, 0, 0, 0.75);
+    padding: 10px;
+    border: solid 1px #ccc;
+    text-align: left;
+    font-size: 18px;
+    color: white;
+}
+
+#tsk {
+    background-color: transparent;
+    border: none;
+    padding-bottom: 1vh;
+    border-bottom: solid 5px var(--gold);
+    color: white;
+    font-size: 18px;
+    margin-right: 0;
+
+    &:focus {
+        outline: none;
+    }
+}
+
+#sendTask {
+    border: none;
+    background-color: transparent;
+}
+
+.blocFeatures {
+    width: 400px;
+    height: 140px;
+    background: #d7e9ff;
+    border-radius: 10px;
+    margin: 0 auto;
+    margin-top: 100px;
+    margin-bottom: 100px;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+}
+
+.imgSelected {
+    border: solid 2px lightblue;
 }
