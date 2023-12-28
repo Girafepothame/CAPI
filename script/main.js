@@ -212,7 +212,7 @@ function roomHandler(p, t) {
         if (selected.length == 0) {
             alert("Veuillez choisir une carte");
         } else {
-            
+            _("#sel").value = selected[0].id;
             if (t < JGame["tasks"].length-1) {
                 if (p < JGame["players"].length-1) {
                     p++;
