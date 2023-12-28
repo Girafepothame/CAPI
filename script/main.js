@@ -1,6 +1,17 @@
+/**
+* @file main.js
+* Fichier principal (javaScript) de l'application WEB
+* @author Loic FABRE
+* @author Jeremy Girault
+* @date 2023
+*/
+
+
+
 document.addEventListener("DOMContentLoaded", () => {
 
     let page = findGetParameter("page") ?? "home";
+
 
     switch (page) {
         case "home":
@@ -13,7 +24,9 @@ document.addEventListener("DOMContentLoaded", () => {
             configHandler();
             break;
         case "room":
-            roomHandler();
+            let p = _("#curp").innerHTML;
+            let t = _("#curt").innerHTML;
+            roomHandler(p, t);
             break;
         default:
             break;
@@ -167,45 +180,60 @@ function configHandler() {
 }
 
 
-function roomHandler() {
+function roomHandler(p, t) {
+    value = ""
+    console.log(t, p)
     var nextButton = _('#next');
     let JGame = {};
     JGame["tasks"] = JSON.parse(_("#tasks").innerHTML);
     JGame["players"] = JSON.parse(_("#players").innerHTML);
+    JGame["current_task"] = t;
+    JGame["current_player"] = p;
     console.log(JGame);
 
-    let p = 0;
-    let t = 0
 
     next = _("#send");
+
+    let cards = _(".card-g");
+
+    for (let card of cards) {
+        card.addEventListener('click', () => {
+            cards.forEach(function(img) {
+                img.classList.remove('imgSelected');
+            });
+            card.classList.add('imgSelected');
+            value = _(".imgSelected")[0].id;
+        })
+    }
+    
+
     nextButton.addEventListener('click', () => {
-        JGame["current_task"] = t;
-        JGame["current_player"] = p;
-        if (t < JGame["tasks"].length) {
-            if (p < JGame["players"].length) {
-                p++;
-            } else {
-                t++;
-                p = 0;
-            }
+        let selected = _(".imgSelected");
+        if (selected.length == 0) {
+            alert("Veuillez choisir une carte");
         } else {
-            alert("C'est fini");
+            
+            if (t < JGame["tasks"].length-1) {
+                if (p < JGame["players"].length-1) {
+                    p++;
+                } else {
+                    t++;
+                    p = 0;
+                }
+                _("#cp").value = p
+                _("#ct").value = t
+                next.click();
+            } else {
+                if (p < JGame["players"].length-1) {
+                    p++;
+                    _("#cp").value = p
+                    _("#ct").value = t
+                    next.click();
+                } else {
+                    alert("C'est fini");
+                }
+            }
         }
-        _("#cp").value = JGame["players"][p]
-        _("#ct").value = JGame["tasks"][t]
-        next.click();
     })
 
 }
-
-function selectImage(imageId) {
-    // Récupère toutes les balises img
-    var allImages = document.querySelectorAll('img');
-
-    allImages.forEach(function(img) {
-        img.classList.remove('imgSelected');
-    });
-
-    var selectedImage = document.getElementById(imageId);
-    selectedImage.classList.add('imgSelected');
-  }

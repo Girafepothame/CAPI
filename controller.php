@@ -21,9 +21,8 @@ if ($page == "room") {
         $_SESSION["tasks"] = $tasks;
         $_SESSION["current_task"] = 0;
     }
-    $current_player = $_POST["curr_p"];
-    $current_task = $_POST["curr_t"];
-    var_dump($_SESSION);
+    $current_player = $_SESSION["players"][$_POST["curr_p"]];
+    $current_task = $_SESSION["tasks"][$_POST["curr_t"]];
 }
 
 ?>

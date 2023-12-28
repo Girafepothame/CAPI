@@ -11,7 +11,7 @@ function afficheImg() {
         $sousChaine = str_replace(".svg", "", $id);
 
         $txtHtml .= '<div>';
-        $txtHtml .= '<img id="img' . $sousChaine . '" src="'.$image.'" onclick="selectImage(\'img' . $sousChaine . '\')">';
+        $txtHtml .= '<img class="card-g" id="img' . $sousChaine . '" src="'.$image.'">';
         $txtHtml .= '</div>';
     }
     return $txtHtml;

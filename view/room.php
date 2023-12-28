@@ -9,10 +9,12 @@
 
     <?php
         $task_data = json_encode($_SESSION["tasks"]);
-        echo '<div id="tasks">'.$task_data.'</div>';
+        echo '<div id="tasks" style="display: none;">'.$task_data.'</div>';
         $player_data = json_encode($_SESSION["players"]);
-        echo '<div id="players">'.$player_data.'</div>';
-        var_dump($_SESSION["players"]);
+        echo '<div id="players" style="display: none;">'.$player_data.'</div>';
+
+        echo '<div id="curt" style="display: none;">'.$_POST["curr_t"].'</div>';
+        echo '<div id="curp" style="display: none;">'.$_POST["curr_p"].'</div>';
     ?>
 
     <div class="contNamePlayer">
